@@ -83,3 +83,9 @@ You may choose to only show certain columns in the output via a `--columns`
 flag.
 
 `genie ls --columns id --columns name`
+
+**Hide Headers**
+
+You may choose to hide the headers with the `-h` flag.
+
+`genie search %Matched% --c id --printer tabbed -h | xargs genie kill`
