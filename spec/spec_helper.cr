@@ -1,3 +1,5 @@
+ENV["ENV"] = "test"
 require "spec"
 require "secure_random"
+require "webmock"
 require "../src/genie"

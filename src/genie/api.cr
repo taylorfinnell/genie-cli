@@ -1,4 +1,6 @@
 require "http/client"
+require "./api/response"
+require "./api/errors"
 
 module Genie
   # Handles the HTTP concerns.
@@ -34,8 +36,10 @@ module Genie
     private def handle_error
       resp = yield
 
-      if resp.status_code != 200
-        raise "Error request failed: #{resp.inspect}"
+      if resp.unauthorized?
+        raise AuthorizationError.new("Not authorized: '#{credentials.username}:#{credentials.password}'")
+      elsif resp.error?
+        raise Error.new("Error request failed: #{resp.inspect}")
       else
         resp.body
       end
@@ -43,12 +47,16 @@ module Genie
 
     # :nodoc:
     private def _get(url)
-      HTTP::Client.get(url, headers: @headers)
+      Response.new(
+        HTTP::Client.get(url, headers: @headers)
+      )
     end
 
     # :nodoc:
     private def _delete(url)
-      HTTP::Client.delete(url, headers: @headers)
+      Api::Response.new(
+        HTTP::Client.delete(url, headers: @headers)
+      )
     end
 
     # :nodoc:

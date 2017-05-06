@@ -6,17 +6,28 @@ module Genie::Cli
     include ConfigFlag
     include ProgressFlag
     include LimitFlag
+    include ColumnsFlag
 
     define_argument name, required: true
 
     def run
-      jobs = client.search(
-        arguments.name,
-        flags.show_progress || false,
-        flags.limit
-      )
+      handle_client_errors do
+        jobs = client.search(options)
 
-      puts printer.print(jobs)
+        printer.print(
+          jobs,
+          flags.columns,
+          flags.hide_header
+        )
+      end
+    end
+
+    private def options
+      Client::SearchOptions.new(
+        name: arguments.name,
+        progress: flags.show_progress,
+        limit: flags.limit
+      )
     end
   end
 end

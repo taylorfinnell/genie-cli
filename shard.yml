@@ -14,6 +14,11 @@ dependencies:
   terminal_table:
     github: benoist/terminal_table.cr
 
+development_dependencies:
+  webmock:
+    github: manastech/webmock.cr
+    branch: master
+
 crystal: 0.22.0
 
 license: MIT

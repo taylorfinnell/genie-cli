@@ -8,3 +8,7 @@ shards:
     github: benoist/terminal_table.cr
     commit: a14e244219a6a7b804b3491bafcff73f4b74855e
 
+  webmock:
+    github: manastech/webmock.cr
+    commit: c673f393a31eac2734c7599897357ef1f3f24011
+

@@ -3,17 +3,25 @@ module Genie::Cli
   class List < Admiral::Command
     include BaseCommand
 
+    include ColumnsFlag
     include ConfigFlag
     include ProgressFlag
     include LimitFlag
 
     def run
-      jobs = client.list(
-        flags.show_progress || false,
-        flags.limit
-      )
+      handle_client_errors do
+        jobs = client.list(list_options)
 
-      printer.print(jobs)
+        printer.print(
+          jobs,
+          flags.columns,
+          flags.hide_header
+        )
+      end
+    end
+
+    private def list_options
+      Client::ListOptions.new(progress: flags.show_progress, limit: flags.limit)
     end
   end
 end

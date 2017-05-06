@@ -2,14 +2,27 @@ module Genie::Cli
   # Gets the status of a Genie job
   class Status < Admiral::Command
     include BaseCommand
+
+    include ColumnsFlag
     include ConfigFlag
     include ProgressFlag
 
     define_argument id, required: true
 
     def run
-      job = client.status(arguments.id, flags.show_progress)
-      printer.print(job)
+      handle_client_errors do
+        job = client.status(options)
+
+        printer.print(
+          job,
+          flags.columns,
+          flags.hide_header
+        )
+      end
+    end
+
+    private def options
+      Client::StatusOptions.new(id: arguments.id, progress: flags.show_progress)
     end
   end
 end

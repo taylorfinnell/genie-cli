@@ -11,13 +11,11 @@ module Genie
         id: String,
         status: String,
         name: String,
-        output_uri: {type: String, key: "outputURI"}
+        output_uri: {type: String, key: "outputURI"},
+        started: Time
       )
 
-      # A valid URI for the Genie job.
-      def stderr_log_uri
-        URI.parse(output_uri + "/stderr.log")
-      end
+      def_equals id, status, name, output_uri, started
     end
   end
 end

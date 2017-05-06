@@ -1,3 +1,6 @@
+require "./flags/columns_flag"
+require "./flags/header_flag"
 require "./flags/config_flag"
 require "./flags/progress_flag"
 require "./flags/limit_flag"
+require "./flags/printer_flag"

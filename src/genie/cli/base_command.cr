@@ -2,6 +2,8 @@ module Genie::Cli
   # Base command, defines help, holds a config and genie client.
   module BaseCommand
     macro included
+      include PrinterFlag
+      include HeaderFlag
       define_help
     end
 
@@ -17,7 +19,21 @@ module Genie::Cli
 
     # :nodoc:
     private def printer
-      JobPrinter.new
+      case flags.printer
+      when "tabbed"
+        TabbedPrinter.new
+      else
+        TablePrinter.new
+      end
+    end
+
+    # :nodoc:
+    private def handle_client_errors
+      begin
+        yield
+      rescue e : Client::Error
+        Genie.logger.error(e.message)
+      end
     end
   end
 end

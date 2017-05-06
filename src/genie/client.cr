@@ -1,3 +1,9 @@
+require "./client/errors"
+require "./client/list_options"
+require "./client/search_options"
+require "./client/kill_options"
+require "./client/status_options"
+
 module Genie
   # A Genie client
   class Client
@@ -6,44 +12,57 @@ module Genie
     end
 
     # Search for a Genie job by name.
-    def search(name : String?, show_progress : Bool, limit : Int32) : Array(Model::Job)
-      jobs = Array(Model::Job).from_json(
-        @api.get("/jobs?limit=#{limit}&name=#{name}")
-      )
+    def search(options : SearchOptions) : Array(Model::Job)
+      json = get("/jobs?limit=#{options.limit}&name=#{options.name}")
+      jobs = Array(Model::Job).from_json(json)
 
-      add_progress!(jobs) if show_progress
+      add_progress!(jobs) if options.progress
 
       jobs
     end
 
     # List Genie jobs
-    def list(show_progress, limit) : Array(Model::Job)
-      jobs = Array(Model::Job).from_json(
-        @api.get("/jobs?limit=#{limit}")
-      )
+    def list(options : ListOptions) : Array(Model::Job)
+      json = get("/jobs?limit=#{options.limit}")
+      jobs = Array(Model::Job).from_json(json)
 
-      add_progress!(jobs) if show_progress
+      add_progress!(jobs) if options.progress
+
       jobs
     end
 
     # Kill a Genie job
-    def kill(id) : Array(Model::Job)
-      job = Model::Job.from_json(
-        @api.delete("/jobs/#{id}")
-      )
+    def kill(options : KillOptions) : Array(Model::Job)
+      json = delete("/jobs/#{options.id}")
+      job = Model::Job.from_json(json)
 
       [job]
     end
 
     # Get a Genie job status
-    def status(id, show_progress) : Array(Model::Job)
-      job = Model::Job.from_json(
-        @api.get("/jobs/#{id}")
-      )
+    def status(options : StatusOptions) : Array(Model::Job)
+      json = get("/jobs/#{options.id}")
+      job = Model::Job.from_json(json)
 
       jobs = [job]
-      add_progress!(jobs) if show_progress
+      add_progress!(jobs) if options.progress
       jobs
+    end
+
+    private def get(url)
+      handle_api_error { @api.get(url) }
+    end
+
+    private def delete(url)
+      handle_api_error { @api.delete(url) }
+    end
+
+    private def handle_api_error
+      begin
+        yield
+      rescue e : Api::Error
+        raise Error.new(e.message)
+      end
     end
 
     # :nodoc:
@@ -60,7 +79,8 @@ module Genie
     private def fetch_progress(job)
       regex = /(?<progress>[0-9]+%)+/
 
-      stderr = @api.get(job.stderr_log_uri)
+      uri = URI.parse("http://#{@config.host}/genie-jobs/#{job.id}/stderr.log")
+      stderr = @api.get(uri)
 
       progress = [] of String
 

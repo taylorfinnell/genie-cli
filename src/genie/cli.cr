@@ -1,5 +1,7 @@
 require "./cli/flags"
-require "./cli/job_printer"
+require "./cli/printer"
+require "./cli/tabbed_printer"
+require "./cli/table_printer"
 require "./cli/base_command"
 require "./cli/kill"
 require "./cli/list"
