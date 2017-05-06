@@ -1,4 +1,5 @@
 # genie
+[![CircleCI](https://circleci.com/gh/taylorfinnell/genie.svg?style=svg)](https://circleci.com/gh/taylorfinnell/genie)
 
 Small CLI for Netflix Genie.
 
