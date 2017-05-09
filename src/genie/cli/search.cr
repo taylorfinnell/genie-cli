@@ -3,11 +3,6 @@ module Genie::Cli
   class Search < Admiral::Command
     include BaseCommand
 
-    include ConfigFlag
-    include ProgressFlag
-    include LimitFlag
-    include ColumnsFlag
-
     define_argument name, required: true
 
     def run

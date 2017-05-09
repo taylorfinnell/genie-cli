@@ -3,11 +3,6 @@ module Genie::Cli
   class List < Admiral::Command
     include BaseCommand
 
-    include ColumnsFlag
-    include ConfigFlag
-    include ProgressFlag
-    include LimitFlag
-
     def run
       handle_client_errors do
         jobs = client.list(list_options)

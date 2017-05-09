@@ -13,8 +13,8 @@ module Genie
 
     # Search for a Genie job by name.
     def search(options : SearchOptions) : Array(Model::Job)
-      json = get("/jobs?limit=#{options.limit}&name=#{options.name}")
-      jobs = Array(Model::Job).from_json(json)
+      resp = get("/jobs?limit=#{options.limit}&name=#{options.name}")
+      jobs = Array(Model::Job).from_json(resp.body)
 
       add_progress!(jobs) if options.progress
 
@@ -23,8 +23,8 @@ module Genie
 
     # List Genie jobs
     def list(options : ListOptions) : Array(Model::Job)
-      json = get("/jobs?limit=#{options.limit}")
-      jobs = Array(Model::Job).from_json(json)
+      resp = get("/jobs?limit=#{options.limit}")
+      jobs = Array(Model::Job).from_json(resp.body)
 
       add_progress!(jobs) if options.progress
 
@@ -33,16 +33,19 @@ module Genie
 
     # Kill a Genie job
     def kill(options : KillOptions) : Array(Model::Job)
-      json = delete("/jobs/#{options.id}")
-      job = Model::Job.from_json(json)
+      resp = delete("/jobs/#{options.id}")
+      job = Model::Job.from_json(resp.body)
+      jobs = [job]
 
-      [job]
+      add_progress!(jobs) if options.progress
+
+      jobs
     end
 
     # Get a Genie job status
     def status(options : StatusOptions) : Array(Model::Job)
-      json = get("/jobs/#{options.id}")
-      job = Model::Job.from_json(json)
+      resp = get("/jobs/#{options.id}")
+      job = Model::Job.from_json(resp.body)
 
       jobs = [job]
       add_progress!(jobs) if options.progress
@@ -80,7 +83,8 @@ module Genie
       regex = /(?<progress>[0-9]+%)+/
 
       uri = URI.parse("http://#{@config.host}/genie-jobs/#{job.id}/stderr.log")
-      stderr = @api.get(uri)
+      resp = @api.get(uri)
+      stderr = resp.body
 
       progress = [] of String
 

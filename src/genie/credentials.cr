@@ -3,8 +3,8 @@ require "yaml"
 module Genie
   # Holds a username and password required for the Api basic authentication.
   class Credentials
-    DEFAULT_USERNAME = ""
-    DEFAULT_PASSWORD = ""
+    DEFAULT_USERNAME = "admin"
+    DEFAULT_PASSWORD = "admin"
 
     YAML.mapping({
       username: String,

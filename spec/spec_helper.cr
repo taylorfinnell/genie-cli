@@ -1,4 +1,5 @@
 ENV["ENV"] = "test"
+ENV["LOG_LEVEL"] = "ERROR"
 require "spec"
 require "secure_random"
 require "webmock"

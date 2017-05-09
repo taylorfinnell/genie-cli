@@ -40,9 +40,9 @@ module Genie
         raise AuthorizationError.new("Not authorized: '#{credentials.username}:#{credentials.password}'")
       elsif resp.error?
         raise Error.new("Error request failed: #{resp.inspect}")
-      else
-        resp.body
       end
+
+      resp
     end
 
     # :nodoc:
