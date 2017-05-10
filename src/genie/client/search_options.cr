@@ -6,7 +6,7 @@ module Genie
       getter limit
       getter name
 
-      def initialize(@name : String, @progress = false, @limit = 32)
+      def initialize(@name : String, @progress : Bool, @limit : Int32)
       end
     end
   end

@@ -5,7 +5,7 @@ module Genie
       getter progress
       getter limit
 
-      def initialize(@progress = false, @limit = 32)
+      def initialize(@progress : Bool, @limit : Int32)
       end
     end
   end

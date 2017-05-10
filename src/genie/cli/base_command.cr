@@ -4,6 +4,10 @@ module Genie::Cli
     macro included
       include PrinterFlag
       include HeaderFlag
+      include ColumnsFlag
+      include ConfigFlag
+      include ProgressFlag
+      include LimitFlag
       define_help
     end
 

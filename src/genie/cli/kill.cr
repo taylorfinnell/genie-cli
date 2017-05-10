@@ -1,9 +1,7 @@
 module Genie::Cli
   # Kills a Genie job by id
   class Kill < Admiral::Command
-    include ColumnsFlag
     include BaseCommand
-    include ConfigFlag
 
     define_argument id, required: true
 
@@ -20,7 +18,7 @@ module Genie::Cli
     end
 
     private def options
-      Client::KillOptions.new(id: arguments.id)
+      Client::KillOptions.new(id: arguments.id, progress: flags.show_progress)
     end
   end
 end

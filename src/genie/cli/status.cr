@@ -3,10 +3,6 @@ module Genie::Cli
   class Status < Admiral::Command
     include BaseCommand
 
-    include ColumnsFlag
-    include ConfigFlag
-    include ProgressFlag
-
     define_argument id, required: true
 
     def run

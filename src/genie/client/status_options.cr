@@ -5,7 +5,7 @@ module Genie
       getter id
       getter progress
 
-      def initialize(@id : String, @progress = false)
+      def initialize(@id : String, @progress : Bool)
       end
     end
   end

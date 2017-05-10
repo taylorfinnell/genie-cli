@@ -27,8 +27,6 @@ module Genie::Cli
     end
 
     private def select_columns(columns)
-      return @rows if @rows.first == headers
-
       @rows = @rows.transpose.select do |(header, x)|
         columns.includes?(header)
       end
