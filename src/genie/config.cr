@@ -8,6 +8,7 @@ module Genie
     YAML.mapping({
       credentials: Credentials,
       host:        String,
+      printer:     String?,
     })
 
     # Instantiate a `Config` object from a file.

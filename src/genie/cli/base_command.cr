@@ -23,12 +23,8 @@ module Genie::Cli
 
     # :nodoc:
     private def printer
-      case flags.printer
-      when "tabbed"
-        TabbedPrinter.new
-      else
-        TablePrinter.new
-      end
+      return _printer(config.printer) if config.printer
+      _printer(flags.printer)
     end
 
     # :nodoc:
@@ -37,6 +33,15 @@ module Genie::Cli
         yield
       rescue e : Client::Error
         Genie.logger.error(e.message)
+      end
+    end
+
+    private def _printer(val)
+      case val
+      when "tabbed"
+        TabbedPrinter.new
+      else
+        TablePrinter.new
       end
     end
   end
