@@ -16,8 +16,8 @@ module Genie
     it "defaults to admin user and pass" do
       credentials = Credentials.new
 
-      credentials.username.should eq("admin")
-      credentials.password.should eq("admin")
+      credentials.username.should eq(nil)
+      credentials.password.should eq(nil)
     end
   end
 end

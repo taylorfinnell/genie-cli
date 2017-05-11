@@ -6,8 +6,8 @@ module Genie
     DEFAULT_HOST = "localhost"
 
     YAML.mapping({
-      credentials: Credentials,
-      host:        String,
+      credentials: Credentials?,
+      host:        String?,
       printer:     String?,
     })
 
@@ -24,18 +24,26 @@ module Genie
       end
     end
 
-    def initialize(@credentials = Credentials.new)
+    def initialize(@credentials = nil)
       @host = DEFAULT_HOST
     end
 
     # The username used for API auth
     def username
-      credentials.username
+      if credentials.nil?
+        nil
+      else
+        credentials.not_nil!.username
+      end
     end
 
     # The password used for API auth
     def password
-      credentials.password
+      if credentials.nil?
+        nil
+      else
+        credentials.not_nil!.password
+      end
     end
   end
 end

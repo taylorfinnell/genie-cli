@@ -28,6 +28,8 @@ credentials:
   password: password
 ```
 
+Credentials are only required if you have Basic auth enabled.
+
 ## Further Configuration
 
 You may set a `printer` key to either `tabbed` or `table` to set the default
