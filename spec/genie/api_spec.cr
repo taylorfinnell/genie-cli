@@ -57,7 +57,17 @@ module Genie::Model
         api.get("/path")
       end
 
+      it "does not have auth header if no credentials" do
+        api = Api.new(@@config)
+
+        WebMock.stub(:get, "http://localhost/genie/v2/path")
+               .to_return(body: "body")
+
+        api.get("/path")
+      end
+
       it "makes api requests with basic auth" do
+        @@config.credentials = Credentials.new("admin", "admin")
         api = Api.new(@@config)
 
         WebMock.stub(:get, "http://localhost/genie/v2/path")

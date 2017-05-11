@@ -6,7 +6,11 @@ module Genie
   # Handles the HTTP concerns.
   class Api
     def initialize(@config : Config)
-      @headers = HTTP::Headers{"Authorization" => basic_auth}
+      if @config.credentials.nil?
+        @headers = HTTP::Headers.new
+      else
+        @headers = HTTP::Headers{"Authorization" => basic_auth.not_nil!}
+      end
     end
 
     # Make a GET request to a path, using the host given by the configuration
@@ -37,7 +41,7 @@ module Genie
       resp = yield
 
       if resp.unauthorized?
-        raise AuthorizationError.new("Not authorized: '#{credentials.username}:#{credentials.password}'")
+        raise AuthorizationError.new("Not authorized: '#{credentials.inspect}'")
       elsif resp.error?
         raise Error.new("Error request failed: #{resp.inspect}")
       end
@@ -71,7 +75,11 @@ module Genie
 
     # :nodoc:
     private def basic_auth
-      "Basic #{credentials.username}:#{credentials.password}"
+      if credentials.nil?
+        nil
+      else
+        "Basic #{credentials.not_nil!.username}:#{credentials.not_nil!.password}"
+      end
     end
 
     # :nodoc:

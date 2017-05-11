@@ -27,13 +27,40 @@ module Genie
     end
 
     describe "from_file" do
+      it "defaults to nil printer" do
+        path = "/tmp/#{SecureRandom.uuid}"
+
+        config = Config.from_file(path)
+        config.printer.should eq(nil)
+      end
+
+      it "can set printer" do
+        path = "/tmp/#{SecureRandom.uuid}"
+
+        File.write(path, <<-YAML
+                   printer: tabbed
+                   YAML
+        )
+
+        config = Config.from_file(path)
+
+        config.printer.should eq("tabbed")
+      end
+
       it "defaults to default config if file not found" do
         path = "/tmp/#{SecureRandom.uuid}"
 
         config = Config.from_file(path)
-        config.username.should eq(Credentials::DEFAULT_USERNAME)
-        config.password.should eq(Credentials::DEFAULT_PASSWORD)
+        config.username.should eq(nil)
+        config.password.should eq(nil)
         config.host.should eq(Config::DEFAULT_HOST)
+      end
+
+      it "defaults to nil credentials" do
+        path = "/tmp/#{SecureRandom.uuid}"
+
+        config = Config.from_file(path)
+        config.credentials.should eq(nil)
       end
 
       it "defaults to default config if file is empty" do
@@ -41,8 +68,8 @@ module Genie
         File.write(path, "")
 
         config = Config.from_file(path)
-        config.username.should eq(Credentials::DEFAULT_USERNAME)
-        config.password.should eq(Credentials::DEFAULT_PASSWORD)
+        config.username.should eq(nil)
+        config.password.should eq(nil)
         config.host.should eq(Config::DEFAULT_HOST)
       end
 
