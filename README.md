@@ -5,8 +5,12 @@ Small CLI for Netflix Genie.
 
 ## Installation
 
+Install Crystal
+
+- `brew install crystal-lang`
+
 Download a release from the Github Releases, or compile your own. After that,
-add the binary to your PATH.
+add the binary to your PATH and make it executable.
 
 ## Configuration
 
@@ -22,6 +26,15 @@ host: genie-host-url:7000
 credentials:
   username: tfinnell
   password: password
+```
+
+## Further Configuration
+
+You may set a `printer` key to either `tabbed` or `table` to set the default
+output type.
+
+```
+printer: tabbed
 ```
 
 ## Usage
@@ -65,7 +78,7 @@ genie status <id> -l 5 -p
 **Kill a Job**
 
 ```
-  genie kill id
+  genie kill <id>
 ```
 
 ## More examples
