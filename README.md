@@ -14,7 +14,7 @@ add the binary to your PATH and make it executable.
 
 Or run...
 
-`https://raw.githubusercontent.com/taylorfinnell/genie/master/install | bash -s`
+`curl https://raw.githubusercontent.com/taylorfinnell/genie/master/install | bash -s`
 
 ## Configuration
 
