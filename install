@@ -4,3 +4,4 @@ URL=$(curl -s https://api.github.com/repos/taylorfinnell/genie/releases/latest |
 curl -L $URL -o genie
 mv ./genie /usr/local/bin/
 chmod +x /usr/local/bin/genie
+echo "Genie CLI Installed."
