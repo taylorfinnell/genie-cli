@@ -11,6 +11,15 @@ module Genie::Cli
       define_help
     end
 
+    private def print(jobs)
+      columns = if flags.columns.any?
+                  flags.columns
+                else
+                  config.columns.not_nil!
+                end
+      printer.print(jobs, columns, flags.hide_header)
+    end
+
     # :nodoc:
     private def config
       Config.from_file(flags.config)

@@ -27,6 +27,29 @@ module Genie
     end
 
     describe "from_file" do
+      it "can parse columns" do
+        path = "/tmp/#{SecureRandom.uuid}"
+
+        File.write(path, <<-YAML
+                   columns:
+                     - id
+                     - status
+                   YAML
+        )
+
+        config = Config.from_file(path)
+
+        config.columns.should eq(["id", "status"])
+      end
+
+      it "defaults to empty column list" do
+        path = "/tmp/#{SecureRandom.uuid}"
+
+        config = Config.from_file(path)
+
+        config.columns.should eq([] of String)
+      end
+
       it "defaults to nil printer" do
         path = "/tmp/#{SecureRandom.uuid}"
 

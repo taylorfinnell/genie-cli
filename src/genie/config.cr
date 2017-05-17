@@ -9,6 +9,7 @@ module Genie
       credentials: Credentials?,
       host:        String?,
       printer:     String?,
+      columns:     { type: Array(String), default: [] of String }
     })
 
     # Instantiate a `Config` object from a file.
@@ -26,6 +27,7 @@ module Genie
 
     def initialize(@credentials = nil)
       @host = DEFAULT_HOST
+      @columns = [] of String
     end
 
     # The username used for API auth
