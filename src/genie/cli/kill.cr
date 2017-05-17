@@ -7,13 +7,7 @@ module Genie::Cli
 
     def run
       handle_client_errors do
-        jobs = client.kill(options)
-
-        printer.print(
-          jobs,
-          flags.columns,
-          flags.hide_header
-        )
+        print(client.kill(options))
       end
     end
 
