@@ -12,6 +12,10 @@ Install Crystal
 Download a release from the Github Releases, or compile your own. After that,
 add the binary to your PATH and make it executable.
 
+Or run...
+
+`curl https://raw.githubusercontent.com/taylorfinnell/genie/master/install | bash -s`
+
 ## Configuration
 
 By default the CLI looks for configuration at `~/.genie.yml`.  Optionally, each
