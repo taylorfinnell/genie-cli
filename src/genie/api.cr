@@ -41,9 +41,13 @@ module Genie
       resp = yield
 
       if resp.unauthorized?
-        raise AuthorizationError.new("Not authorized: '#{credentials.inspect}'")
+        raise AuthorizationError.new("Not authorized: '#{resp.inspect}'")
       elsif resp.error?
-        raise Error.new("Error request failed: #{resp.inspect}")
+        if resp.status_code == 404
+          raise NotFoundError.new("Request failed, resource not found: #{resp.inspect}")
+        else
+          raise Error.new("Error request failed: #{resp.inspect}")
+        end
       end
 
       resp

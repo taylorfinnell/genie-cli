@@ -23,6 +23,22 @@ module Genie::Model
         end
       end
 
+      it "returns a reasonable error when resource not found" do
+        api = Api.new(@@config)
+
+        WebMock.stub(:get, "http://google.com")
+               .to_return(body: "body", status: 404)
+
+        expect_raises Api::NotFoundError do
+          resp = api.get(URI.parse("http://google.com"))
+
+          resp.success?.should eq(false)
+          resp.error?.should eq(true)
+          resp.status_code.should eq(404)
+          resp.unauthorized?.should eq(true)
+        end
+      end
+
       it "returns reasonable response when not authorized" do
         api = Api.new(@@config)
 
@@ -86,6 +102,22 @@ module Genie::Model
                .to_return(body: "body")
 
         api.delete("/path")
+      end
+
+      it "returns a reasonable error when resource not found" do
+        api = Api.new(@@config)
+
+        WebMock.stub(:delete, "http://localhost/genie/v2/blah")
+               .to_return(body: "body", status: 404)
+
+        expect_raises Api::NotFoundError do
+          resp = api.delete("/blah")
+
+          resp.success?.should eq(false)
+          resp.error?.should eq(true)
+          resp.status_code.should eq(404)
+          resp.unauthorized?.should eq(true)
+        end
       end
 
       it "returns a reasonable respone on error" do
