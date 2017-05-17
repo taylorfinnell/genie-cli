@@ -5,16 +5,22 @@ Small CLI for Netflix Genie.
 
 ## Installation
 
-Install Crystal
+##### From GitHub
+1) Install Crystal
+   `brew install crystal-lang`
+1) Download a release from the Github Releases.
+1) Add binary to PATH and make it executable
 
-- `brew install crystal-lang`
+##### From Source
 
-Download a release from the Github Releases, or compile your own. After that,
-add the binary to your PATH and make it executable.
+1) Install Crystal
+1) Clone repository
+1) `crystal build src/genie.cr --release`
+1) Download a release from the Github Releases.
+1) Add binary to PATH and make it executable
 
-Or run...
-
-`curl https://raw.githubusercontent.com/taylorfinnell/genie/master/install | bash -s`
+##### From Install Script
+1) `curl https://raw.githubusercontent.com/taylorfinnell/genie/master/install | bash -s`
 
 ## Configuration
 
@@ -34,13 +40,22 @@ credentials:
 
 Credentials are only required if you have Basic auth enabled.
 
-## Further Configuration
+## Optional Configuration
 
 You may set a `printer` key to either `tabbed` or `table` to set the default
 output type.
 
 ```
 printer: tabbed
+```
+
+You may set the default output columns.
+
+```
+columns:
+  - id
+  - status
+  - name
 ```
 
 ## Usage
