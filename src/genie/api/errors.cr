@@ -7,5 +7,8 @@ module Genie
     # An Authorization error in the Api
     class AuthorizationError < Error
     end
+
+    class NotFoundError < Error
+    end
   end
 end

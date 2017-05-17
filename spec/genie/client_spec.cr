@@ -51,6 +51,22 @@ module Genie::Model
         jobs.size.should eq(1)
         jobs.first.progress.should eq(100)
       end
+
+      it "is ok if the stderr is not written yet" do
+        WebMock.stub(:get, "http://localhost/genie-jobs/123/stderr.log").
+          to_return(status: 404)
+
+        WebMock.stub(:get, "http://localhost/genie/v2/jobs?limit=32").
+          to_return(body: @@jobs)
+
+        options = Client::ListOptions.new(progress: true, limit: 32)
+
+        client = Client.new(@@config)
+        jobs = client.list(options)
+
+        jobs.size.should eq(1)
+        jobs.first.progress.should eq(0)
+      end
     end
 
     describe "status" do
@@ -80,6 +96,22 @@ module Genie::Model
 
         jobs.size.should eq(1)
         jobs.first.progress.should eq(100)
+      end
+
+      it "be ok if stderr is not avaiable" do
+        WebMock.stub(:get, "http://localhost/genie-jobs/123/stderr.log").
+          to_return(status: 404)
+
+        WebMock.stub(:get, "http://localhost/genie/v2/jobs/123").
+          to_return(body: @@job)
+
+        options = Client::StatusOptions.new(id: "123", progress: true)
+
+        client = Client.new(@@config)
+        jobs = client.status(options)
+
+        jobs.size.should eq(1)
+        jobs.first.progress.should eq(0)
       end
     end
 
@@ -111,6 +143,22 @@ module Genie::Model
         jobs.size.should eq(1)
         jobs.first.progress.should eq(100)
       end
+
+      it "be ok if stderr is not written" do
+        WebMock.stub(:get, "http://localhost/genie-jobs/123/stderr.log").
+          to_return(status: 404)
+
+        WebMock.stub(:delete, "http://localhost/genie/v2/jobs/123").
+          to_return(body: @@job)
+
+        options = Client::KillOptions.new(id: "123", progress: true)
+
+        client = Client.new(@@config)
+        jobs = client.kill(options)
+
+        jobs.size.should eq(1)
+        jobs.first.progress.should eq(0)
+      end
     end
 
     describe "search" do
@@ -140,6 +188,22 @@ module Genie::Model
 
         jobs.size.should eq(1)
         jobs.first.progress.should eq(100)
+      end
+
+      it "be ok if stderr not found" do
+        WebMock.stub(:get, "http://localhost/genie-jobs/123/stderr.log").
+          to_return(status: 404)
+
+        WebMock.stub(:get, "http://localhost/genie/v2/jobs?limit=32&name=blah").
+          to_return(body: @@jobs)
+
+        options = Client::SearchOptions.new("blah", progress: true, limit: 32)
+
+        client = Client.new(@@config)
+        jobs = client.search(options)
+
+        jobs.size.should eq(1)
+        jobs.first.progress.should eq(0)
       end
     end
   end
