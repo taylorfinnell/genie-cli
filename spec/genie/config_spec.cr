@@ -27,6 +27,26 @@ module Genie
     end
 
     describe "from_file" do
+      it "can parse name length" do
+        path = "/tmp/#{SecureRandom.uuid}"
+
+        File.write(path, <<-YAML
+                   name_length: 123
+                   YAML
+        )
+
+        config = Config.from_file(path)
+
+        config.name_length.should eq(123)
+      end
+
+      it "has a default name length of -1" do
+        path = "/tmp/#{SecureRandom.uuid}"
+        config = Config.from_file(path)
+
+        config.name_length.should eq(-1)
+      end
+
       it "can parse columns" do
         path = "/tmp/#{SecureRandom.uuid}"
 
