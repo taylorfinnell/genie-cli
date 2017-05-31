@@ -3,9 +3,7 @@ module Genie::Cli
   class TablePrinter
     include Printer
 
-    def initialize
-      @table = TerminalTable.new
-    end
+    @table = TerminalTable.new
 
     def render(hide_header)
       if hide_header == false
@@ -18,7 +16,7 @@ module Genie::Cli
         @table << row
       end
 
-      puts(@table.render)
+      write(@table.render)
     end
   end
 end

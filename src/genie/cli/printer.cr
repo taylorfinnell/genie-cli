@@ -1,6 +1,9 @@
 module Genie::Cli
   module Printer
     @rows = [] of Array(String)
+    @io : IO = STDOUT
+
+    property io
 
     abstract def render(hide_header = false)
 
@@ -29,6 +32,15 @@ module Genie::Cli
       end
 
       render(hide_header)
+    end
+
+    def string
+      @io.rewind
+      @io.gets_to_end
+    end
+
+    private def write(data)
+      @io.puts(data)
     end
 
     private def select_columns(columns)
