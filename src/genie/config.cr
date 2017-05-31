@@ -3,14 +3,19 @@ require "yaml"
 module Genie
   # Holds Configuration
   class Config
-    DEFAULT_HOST = "localhost"
+    DEFAULT_HOST = "http://localhost"
 
     YAML.mapping({
       credentials: Credentials?,
       host:        String?,
       printer:     String?,
-      columns:     { type: Array(String), default: [] of String }
+      columns:     {type: Array(String), default: [] of String},
     })
+
+    def self.from_env(env)
+      parts = ["~/", "genie", env, "yml"].compact.join(".")
+      from_file(parts)
+    end
 
     # Instantiate a `Config` object from a file.
     def self.from_file(file)
@@ -28,6 +33,14 @@ module Genie
     def initialize(@credentials = nil)
       @host = DEFAULT_HOST
       @columns = [] of String
+    end
+
+    def host
+      if @host.not_nil!.starts_with?("http://")
+        @host
+      else
+        "http://#{@host}"
+      end
     end
 
     # The username used for API auth

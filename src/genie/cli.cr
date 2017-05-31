@@ -7,6 +7,7 @@ require "./cli/kill"
 require "./cli/list"
 require "./cli/search"
 require "./cli/status"
+require "./cli/open"
 
 module Genie::Cli
   # The base Cli
@@ -25,6 +26,9 @@ module Genie::Cli
 
     # Search for a Genie job.
     register_sub_command search, Cli::Search
+
+    # Open a Genie job.
+    register_sub_command open, Cli::Open
 
     def run
       puts help

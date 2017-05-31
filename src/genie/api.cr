@@ -1,4 +1,6 @@
+require "uri"
 require "http/client"
+
 require "./api/response"
 require "./api/errors"
 
@@ -15,16 +17,16 @@ module Genie
 
     # Make a GET request to a path, using the host given by the configuration
     # api uri.
-    def get(path : String)
+    def get(path : String, params = {} of String => String)
       handle_error do
-        _get(full_path(path))
+        _get(full_path(path), params)
       end
     end
 
     # Make a GET request using a full URI.
-    def get(uri : URI)
+    def get(uri : URI, params = {} of String => String)
       handle_error do
-        _get(uri.to_s)
+        _get(uri.to_s, params)
       end
     end
 
@@ -54,10 +56,13 @@ module Genie
     end
 
     # :nodoc:
-    private def _get(url)
-      Response.new(
-        HTTP::Client.get(url, headers: @headers)
-      )
+    private def _get(url, params : Hash(String, String))
+      _url = url
+      if params.any?
+        _url = "#{_url}?#{params.map { |k, v| "#{k}=#{URI.escape(v)}" }.join("&")}"
+      end
+
+      Response.new(HTTP::Client.get(_url, headers: @headers))
     end
 
     # :nodoc:
@@ -69,7 +74,7 @@ module Genie
 
     # :nodoc:
     private def full_path(path)
-      "http://#{host}/genie/v2#{path}"
+      "#{host}/genie/v2#{path}"
     end
 
     # :nodoc:

@@ -3,6 +3,7 @@ require "./client/list_options"
 require "./client/search_options"
 require "./client/kill_options"
 require "./client/status_options"
+require "./client/open_options"
 
 module Genie
   # A Genie client
@@ -11,9 +12,18 @@ module Genie
       @api = Api.new(@config)
     end
 
+    def open(options : OpenOptions)
+      `open #{@config.host}/genie-jobs/#{options.id}/`
+    end
+
     # Search for a Genie job by name.
     def search(options : SearchOptions) : Array(Model::Job)
-      resp = get("/jobs?limit=#{options.limit}&name=#{options.name}")
+      resp = get("/jobs", {
+        "limit" => options.limit.to_s,
+        "name"  => options.name,
+      }
+      )
+
       jobs = Array(Model::Job).from_json(resp.body)
 
       add_progress!(jobs) if options.progress
@@ -23,7 +33,10 @@ module Genie
 
     # List Genie jobs
     def list(options : ListOptions) : Array(Model::Job)
-      resp = get("/jobs?limit=#{options.limit}")
+      resp = get("/jobs", {
+        "limit" => options.limit.to_s,
+      })
+
       jobs = Array(Model::Job).from_json(resp.body)
 
       add_progress!(jobs) if options.progress
@@ -52,8 +65,8 @@ module Genie
       jobs
     end
 
-    private def get(url)
-      handle_api_error { @api.get(url) }
+    private def get(url, params = {} of String => String)
+      handle_api_error { @api.get(url, params) }
     end
 
     private def delete(url)
@@ -82,7 +95,7 @@ module Genie
     private def fetch_progress(job)
       regex = /(?<progress>[0-9]+%)+/
 
-      uri = URI.parse("http://#{@config.host}/genie-jobs/#{job.id}/stderr.log")
+      uri = URI.parse("#{@config.host}/genie-jobs/#{job.id}/stderr.log")
       stderr = begin
         resp = @api.get(uri)
         resp.body

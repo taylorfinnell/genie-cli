@@ -5,9 +5,9 @@ module Genie::Cli
       include PrinterFlag
       include HeaderFlag
       include ColumnsFlag
-      include ConfigFlag
       include ProgressFlag
       include LimitFlag
+      include EnvFlag
       define_help
     end
 
@@ -22,7 +22,7 @@ module Genie::Cli
 
     # :nodoc:
     private def config
-      Config.from_file(flags.config)
+      Config.from_env(flags.env)
     end
 
     # :nodoc:

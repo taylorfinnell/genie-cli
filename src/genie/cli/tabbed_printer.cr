@@ -7,7 +7,7 @@ module Genie::Cli
       @rows = @rows[1..-1] if hide_header
 
       @rows.each do |row|
-        puts(row.join("\t"))
+        write(row.join("\t"))
       end
     end
   end
