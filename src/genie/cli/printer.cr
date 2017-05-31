@@ -22,7 +22,12 @@ module Genie::Cli
         end
       end
 
-      select_columns(columns)
+      if jobs.any?
+        select_columns(columns)
+      else
+        hide_header = false
+      end
+
       render(hide_header)
     end
 
