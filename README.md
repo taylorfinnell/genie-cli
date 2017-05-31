@@ -25,9 +25,13 @@ Small CLI for Netflix Genie.
 ## Configuration
 
 By default the CLI looks for configuration at `~/.genie.yml`.  Optionally, each
-command can specify an alternate configuration via a `--config` flag.
+command can specify an alternate configuration via a `--env` or `-e` flag.
 
-`genie ls --config ~/.genie.prod.yml`
+For example:
+
+`genie ls -e prod`
+
+Would look for `~/.genie.prod.yml`
 
 The configuration file looks like the following.
 
@@ -94,6 +98,12 @@ You may show job progress with the `-p` flag. You may also limit the results wit
 
 ```
 genie status <id> -l 5 -p
+```
+
+**Open Job Output**
+
+```
+  genie open <id>
 ```
 
 **Kill a Job**
