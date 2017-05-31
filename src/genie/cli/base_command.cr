@@ -17,7 +17,7 @@ module Genie::Cli
                 else
                   config.columns.not_nil!
                 end
-      printer.print(jobs, columns, flags.hide_header)
+      printer.print(jobs, columns, flags.hide_header, config.name_length)
     end
 
     # :nodoc:

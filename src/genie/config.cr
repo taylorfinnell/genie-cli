@@ -9,7 +9,8 @@ module Genie
       credentials: Credentials?,
       host:        String?,
       printer:     String?,
-      columns:     {type: Array(String), default: [] of String},
+      columns:     { type: Array(String), default: [] of String },
+      name_length: { type: Int64, default: -1.to_i64 }
     })
 
     def self.from_env(env)
@@ -33,6 +34,7 @@ module Genie
     def initialize(@credentials = nil)
       @host = DEFAULT_HOST
       @columns = [] of String
+      @name_length = -1.to_i64
     end
 
     def host

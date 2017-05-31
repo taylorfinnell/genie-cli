@@ -7,7 +7,7 @@ module Genie::Cli
 
     abstract def render(hide_header = false)
 
-    def print(jobs, columns, hide_header)
+    def print(jobs, columns, hide_header, name_length = -1)
       columns = headers if columns.empty?
 
       if (columns & headers).size == 0
@@ -19,9 +19,9 @@ module Genie::Cli
 
       jobs.each do |job|
         if job.progress
-          @rows << [job.id, job.name, job.status, "#{job.progress}%", job.started.to_s]
+          @rows << [job.id, job.name[0..name_length], job.status, "#{job.progress}%", job.started.to_s]
         else
-          @rows << [job.id, job.name, job.status, "N/A", job.started.to_s]
+          @rows << [job.id, job.name[0..name_length], job.status, "N/A", job.started.to_s]
         end
       end
 

@@ -62,6 +62,12 @@ columns:
   - name
 ```
 
+You may choose to truncate the job name after a certain number of characters.
+
+```
+name_length: 25
+```
+
 ## Usage
 
 **List Genie Jobs**
