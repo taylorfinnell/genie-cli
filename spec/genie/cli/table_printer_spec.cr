@@ -27,9 +27,11 @@ module Genie
       ]
 
       printer = Genie::Cli::TablePrinter.new
-
       printer.io = IO::Memory.new
-      printer.print(jobs, [] of String, false)
+
+      with_timezone("America/New_York") do
+        printer.print(jobs, [] of String, false)
+      end
 
       expected = <<-PRINTED
       +-----+------+---------+----------+---------------------+

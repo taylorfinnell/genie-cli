@@ -9,6 +9,14 @@ JOB_JSON = {
   "outputURI" : "uri"
 }.to_json
 
+def self.with_timezone(zone)
+  tz = ENV["TZ"]?
+  ENV["TZ"] = zone
+  ret = yield
+  ENV["TZ"] = tz
+  ret
+end
+
 require "spec"
 require "secure_random"
 require "webmock"
