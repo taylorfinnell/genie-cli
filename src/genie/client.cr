@@ -3,12 +3,17 @@ require "./client/list_options"
 require "./client/search_options"
 require "./client/kill_options"
 require "./client/status_options"
+require "./client/open_options"
 
 module Genie
   # A Genie client
   class Client
     def initialize(@config : Config)
       @api = Api.new(@config)
+    end
+
+    def open(options : OpenOptions)
+      `open #{@config.host}/genie-jobs/#{options.id}/`
     end
 
     # Search for a Genie job by name.
