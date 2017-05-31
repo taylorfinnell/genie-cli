@@ -69,7 +69,7 @@ module Genie
 
     # :nodoc:
     private def full_path(path)
-      "http://#{host}/genie/v2#{path}"
+      "#{host}/genie/v2#{path}"
     end
 
     # :nodoc:

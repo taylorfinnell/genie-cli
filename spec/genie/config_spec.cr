@@ -22,7 +22,7 @@ module Genie
       it "defaults to localhost" do
         config = Config.new
 
-        config.host.should eq("localhost")
+        config.host.should eq("http://localhost")
       end
     end
 
@@ -111,7 +111,7 @@ module Genie
 
         config.username.should eq("blah")
         config.password.should eq("pass")
-        config.host.should eq("host")
+        config.host.should eq("http://host")
       end
     end
   end

@@ -87,7 +87,7 @@ module Genie
     private def fetch_progress(job)
       regex = /(?<progress>[0-9]+%)+/
 
-      uri = URI.parse("http://#{@config.host}/genie-jobs/#{job.id}/stderr.log")
+      uri = URI.parse("#{@config.host}/genie-jobs/#{job.id}/stderr.log")
       stderr = begin
         resp = @api.get(uri)
         resp.body

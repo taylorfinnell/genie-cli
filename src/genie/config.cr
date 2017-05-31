@@ -3,7 +3,7 @@ require "yaml"
 module Genie
   # Holds Configuration
   class Config
-    DEFAULT_HOST = "localhost"
+    DEFAULT_HOST = "http://localhost"
 
     YAML.mapping({
       credentials: Credentials?,
@@ -28,6 +28,14 @@ module Genie
     def initialize(@credentials = nil)
       @host = DEFAULT_HOST
       @columns = [] of String
+    end
+
+    def host
+      if @host.not_nil!.starts_with?("http://")
+        @host
+      else
+        "http://#{@host}"
+      end
     end
 
     # The username used for API auth
