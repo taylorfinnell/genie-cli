@@ -9,11 +9,11 @@ module Genie
       credentials: Credentials?,
       host:        String?,
       printer:     String?,
-      columns:     { type: Array(String), default: [] of String }
+      columns:     {type: Array(String), default: [] of String},
     })
 
     def self.from_env(env)
-      parts  = ["~/", "genie", env, "yml"].compact.join(".")
+      parts = ["~/", "genie", env, "yml"].compact.join(".")
       from_file(parts)
     end
 

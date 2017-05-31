@@ -19,9 +19,9 @@ module Genie
     # Search for a Genie job by name.
     def search(options : SearchOptions) : Array(Model::Job)
       resp = get("/jobs", {
-          "limit" => options.limit.to_s,
-          "name" => options.name
-        }
+        "limit" => options.limit.to_s,
+        "name"  => options.name,
+      }
       )
 
       jobs = Array(Model::Job).from_json(resp.body)
@@ -34,7 +34,7 @@ module Genie
     # List Genie jobs
     def list(options : ListOptions) : Array(Model::Job)
       resp = get("/jobs", {
-        "limit" => options.limit.to_s
+        "limit" => options.limit.to_s,
       })
 
       jobs = Array(Model::Job).from_json(resp.body)

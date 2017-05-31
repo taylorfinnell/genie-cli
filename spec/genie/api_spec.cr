@@ -11,7 +11,7 @@ module Genie::Model
         api = Api.new(@@config)
 
         WebMock.stub(:get, "http://localhost/genie/v2/jobs")
-          .to_return(body: "body", status: 200)
+               .to_return(body: "body", status: 200)
 
         resp = api.get("/jobs", {} of String => String)
 
@@ -25,10 +25,10 @@ module Genie::Model
         api = Api.new(@@config)
 
         WebMock.stub(:get, "http://localhost/genie/v2/jobs?name=%25hi%25")
-          .to_return(body: "body", status: 200)
+               .to_return(body: "body", status: 200)
 
         resp = api.get("/jobs", {
-          "name" => "%hi%"
+          "name" => "%hi%",
         })
 
         resp.success?.should eq(true)

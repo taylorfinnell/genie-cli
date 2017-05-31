@@ -3,7 +3,7 @@ require "../../spec_helper"
 module Genie
   describe Cli::TabbedPrinter do
     it "can print no jobs" do
-      jobs = [ ] of Genie::Model::Job
+      jobs = [] of Genie::Model::Job
 
       printer = Genie::Cli::TabbedPrinter.new
 
@@ -20,7 +20,7 @@ module Genie
 
     it "prints jobs" do
       jobs = [
-        Genie::Model::Job.from_json(JOB_JSON)
+        Genie::Model::Job.from_json(JOB_JSON),
       ]
 
       printer = Genie::Cli::TabbedPrinter.new
@@ -39,7 +39,7 @@ module Genie
 
     it "can have headers specified" do
       jobs = [
-        Genie::Model::Job.from_json(JOB_JSON)
+        Genie::Model::Job.from_json(JOB_JSON),
       ]
 
       printer = Genie::Cli::TabbedPrinter.new
@@ -58,7 +58,7 @@ module Genie
 
     it "can have no header" do
       jobs = [
-        Genie::Model::Job.from_json(JOB_JSON)
+        Genie::Model::Job.from_json(JOB_JSON),
       ]
 
       printer = Genie::Cli::TabbedPrinter.new
@@ -73,6 +73,5 @@ module Genie
 
       printer.string.should eq(expected)
     end
-
   end
 end
