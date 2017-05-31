@@ -18,7 +18,12 @@ module Genie
 
     # Search for a Genie job by name.
     def search(options : SearchOptions) : Array(Model::Job)
-      resp = get("/jobs?limit=#{options.limit}&name=#{options.name}")
+      resp = get("/jobs", {
+          "limit" => options.limit.to_s,
+          "name" => options.name
+        }
+      )
+
       jobs = Array(Model::Job).from_json(resp.body)
 
       add_progress!(jobs) if options.progress
@@ -28,7 +33,10 @@ module Genie
 
     # List Genie jobs
     def list(options : ListOptions) : Array(Model::Job)
-      resp = get("/jobs?limit=#{options.limit}")
+      resp = get("/jobs", {
+        "limit" => options.limit.to_s
+      })
+
       jobs = Array(Model::Job).from_json(resp.body)
 
       add_progress!(jobs) if options.progress
@@ -57,8 +65,8 @@ module Genie
       jobs
     end
 
-    private def get(url)
-      handle_api_error { @api.get(url) }
+    private def get(url, params = {} of String => String)
+      handle_api_error { @api.get(url, params) }
     end
 
     private def delete(url)

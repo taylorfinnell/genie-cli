@@ -7,6 +7,36 @@ module Genie::Model
     Spec.before_each { WebMock.reset }
 
     describe "get" do
+      it "does not add query string if no params" do
+        api = Api.new(@@config)
+
+        WebMock.stub(:get, "http://localhost/genie/v2/jobs")
+          .to_return(body: "body", status: 200)
+
+        resp = api.get("/jobs", {} of String => String)
+
+        resp.success?.should eq(true)
+        resp.error?.should eq(false)
+        resp.status_code.should eq(200)
+        resp.unauthorized?.should eq(false)
+      end
+
+      it "escapes params" do
+        api = Api.new(@@config)
+
+        WebMock.stub(:get, "http://localhost/genie/v2/jobs?name=%25hi%25")
+          .to_return(body: "body", status: 200)
+
+        resp = api.get("/jobs", {
+          "name" => "%hi%"
+        })
+
+        resp.success?.should eq(true)
+        resp.error?.should eq(false)
+        resp.status_code.should eq(200)
+        resp.unauthorized?.should eq(false)
+      end
+
       it "returns a reasonable respone on error" do
         api = Api.new(@@config)
 
