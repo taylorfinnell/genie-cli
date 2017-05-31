@@ -12,6 +12,11 @@ module Genie
       columns:     { type: Array(String), default: [] of String }
     })
 
+    def self.from_env(env)
+      parts  = ["~/", "genie", env, "yml"].compact.join(".")
+      from_file(parts)
+    end
+
     # Instantiate a `Config` object from a file.
     def self.from_file(file)
       begin
