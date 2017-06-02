@@ -1,7 +1,7 @@
 module Genie
   MAJOR = "0"
   MINOR = "1"
-  PATCH = "7"
+  PATCH = "8"
 
   # CLI Version
   VERSION = [

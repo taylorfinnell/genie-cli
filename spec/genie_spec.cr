@@ -2,6 +2,6 @@ require "./spec_helper"
 
 describe Genie do
   it "has a version" do
-    Genie::VERSION.should eq("0.1.7")
+    Genie::VERSION.should eq("0.1.8")
   end
 end
