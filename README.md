@@ -14,12 +14,15 @@ Small CLI for Netflix Genie.
 ##### From Source
 
 1) Install Crystal
+   `brew install crystal-lang`
 1) Clone repository
 1) `crystal build src/genie.cr --release`
 1) Download a release from the Github Releases.
 1) Add binary to PATH and make it executable
 
 ##### From Install Script
+1) Install Crystal
+   `brew install crystal-lang`
 1) `curl https://raw.githubusercontent.com/taylorfinnell/genie/master/install | bash -s`
 
 ## Configuration
