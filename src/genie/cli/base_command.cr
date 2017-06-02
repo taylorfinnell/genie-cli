@@ -7,6 +7,7 @@ module Genie::Cli
       include ColumnsFlag
       include ProgressFlag
       include LimitFlag
+      include NameLimitFlag
       include EnvFlag
       define_help
     end
@@ -17,7 +18,8 @@ module Genie::Cli
                 else
                   config.columns.not_nil!
                 end
-      printer.print(jobs, columns, flags.hide_header, config.name_length)
+      printer.print(jobs, columns,
+        flags.hide_header, flags.name_limit || config.name_length)
     end
 
     # :nodoc:
