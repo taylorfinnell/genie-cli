@@ -1,7 +1,7 @@
-# genie
+# genie-cli
 [![CircleCI](https://circleci.com/gh/taylorfinnell/genie.svg?style=svg)](https://circleci.com/gh/taylorfinnell/genie)
 
-Small CLI for Netflix Genie.
+Small CLI for Netflix's Genie.
 
 ## Installation
 
@@ -23,7 +23,7 @@ Small CLI for Netflix Genie.
 ##### From Install Script
 1) Install Crystal
    `brew install crystal-lang`
-1) `curl https://raw.githubusercontent.com/taylorfinnell/genie/master/install | bash -s`
+1) `curl https://raw.githubusercontent.com/taylorfinnell/genie-cli/master/install | bash -s`
 
 ## Configuration
 
