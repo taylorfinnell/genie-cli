@@ -1,5 +1,5 @@
 # genie-cli
-[![CircleCI](https://circleci.com/gh/taylorfinnell/genie.svg?style=svg)](https://circleci.com/gh/taylorfinnell/genie)
+[![CircleCI](https://circleci.com/gh/taylorfinnell/genie-cli.svg?style=svg)](https://circleci.com/gh/taylorfinnell/genie-cli)
 
 Small CLI for Netflix's Genie.
 
