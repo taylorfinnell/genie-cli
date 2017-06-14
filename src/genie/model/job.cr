@@ -12,11 +12,16 @@ module Genie
         status: String,
         name: String,
         output_uri: {type: String, key: "outputURI"},
-        started: Time
+        started: Time,
+        finished: Time,
       )
 
       def started
         @started.to_local.to_s("%Y-%m-%d %H:%M:%S")
+      end
+
+      def finished
+        @finished.to_local.to_s("%Y-%m-%d %H:%M:%S")
       end
 
       def_equals id, status, name, output_uri, started

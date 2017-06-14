@@ -19,9 +19,9 @@ module Genie::Cli
 
       jobs.each do |job|
         if job.progress
-          @rows << [job.id, job.name[0..name_length], job.status, "#{job.progress}%", job.started.to_s]
+          @rows << [job.id, job.name[0..name_length], job.status, "#{job.progress}%", job.started.to_s, job.finished.to_s]
         else
-          @rows << [job.id, job.name[0..name_length], job.status, "N/A", job.started.to_s]
+          @rows << [job.id, job.name[0..name_length], job.status, "N/A", job.started.to_s, job.finished.to_s]
         end
       end
 
@@ -52,7 +52,7 @@ module Genie::Cli
     end
 
     private def headers
-      ["id", "name", "status", "progress", "started"]
+      ["id", "name", "status", "progress", "started", "finished"]
     end
   end
 end
