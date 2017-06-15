@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-URL=$(curl -s https://api.github.com/repos/taylorfinnell/genie/releases/latest | grep 'browser_' | cut -d\" -f4)
+URL=$(curl -s https://api.github.com/repos/taylorfinnell/genie-cli/releases/latest | grep 'browser_' | cut -d\" -f4)
 curl -L $URL -o genie
 mv ./genie /usr/local/bin/
 chmod +x /usr/local/bin/genie
