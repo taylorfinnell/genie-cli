@@ -20,7 +20,7 @@ module Genie
 
     it "prints jobs" do
       jobs = [
-        Genie::Model::Job.from_json(JOB_JSON),
+        Genie::Model::Job.from_json(JOB_ATTRS.to_json),
       ]
 
       printer = Genie::Cli::TabbedPrinter.new
@@ -41,7 +41,7 @@ module Genie
 
     it "can have headers specified" do
       jobs = [
-        Genie::Model::Job.from_json(JOB_JSON),
+        Genie::Model::Job.from_json(JOB_ATTRS.to_json),
       ]
 
       printer = Genie::Cli::TabbedPrinter.new
@@ -60,7 +60,7 @@ module Genie
 
     it "can have no header" do
       jobs = [
-        Genie::Model::Job.from_json(JOB_JSON),
+        Genie::Model::Job.from_json(JOB_ATTRS.to_json),
       ]
 
       printer = Genie::Cli::TabbedPrinter.new
