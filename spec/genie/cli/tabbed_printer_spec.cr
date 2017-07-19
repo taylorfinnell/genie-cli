@@ -11,7 +11,7 @@ module Genie
       printer.print(jobs, [] of String, false)
 
       expected = <<-PRINTED
-      id\tname\tstatus\tprogress\tstarted\tfinished
+      id\tname\tstatus\tprogress\tcluster\tstarted\tfinished
 
       PRINTED
 
@@ -20,7 +20,7 @@ module Genie
 
     it "prints jobs" do
       jobs = [
-        Genie::Model::Job.from_json(JOB_ATTRS.to_json),
+        Genie::Model::Job.from_json(JOB_FIXTURE.to_json),
       ]
 
       printer = Genie::Cli::TabbedPrinter.new
@@ -31,8 +31,8 @@ module Genie
       end
 
       expected = <<-PRINTED
-      id\tname\tstatus\tprogress\tstarted\tfinished
-      123\tblah\tRUNNING\tN/A\t2017-05-01 15:56:53\t2017-05-02 15:56:53
+      id\tname\tstatus\tprogress\tcluster\tstarted\tfinished
+      123\tblah\tRUNNING\tN/A\tcluster-id\t2017-05-01 15:56:53\t2017-05-02 15:56:53
 
       PRINTED
 
@@ -41,7 +41,7 @@ module Genie
 
     it "can have headers specified" do
       jobs = [
-        Genie::Model::Job.from_json(JOB_ATTRS.to_json),
+        Genie::Model::Job.from_json(JOB_FIXTURE.to_json),
       ]
 
       printer = Genie::Cli::TabbedPrinter.new
@@ -60,7 +60,7 @@ module Genie
 
     it "can have no header" do
       jobs = [
-        Genie::Model::Job.from_json(JOB_ATTRS.to_json),
+        Genie::Model::Job.from_json(JOB_FIXTURE.to_json),
       ]
 
       printer = Genie::Cli::TabbedPrinter.new
