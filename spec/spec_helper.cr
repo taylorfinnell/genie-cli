@@ -1,7 +1,7 @@
 ENV["ENV"] = "test"
 ENV["LOG_LEVEL"] = "ERROR"
 
-JOB_ATTRS = Genie::Model::Job.new(
+JOB_FIXTURE = Genie::Model::Job.new(
   id: "123",
   status: "RUNNING",
   started: Time.parse("2017-05-01T19:56:53Z", "%Y-%m-%dT%H:%M:%SZ"),

@@ -3,9 +3,9 @@ require "../spec_helper"
 module Genie::Model
   @@config : Config = Config.new
 
-  @@job : String = JOB_ATTRS.to_json
+  @@job : String = JOB_FIXTURE.to_json
 
-  @@jobs : String = [JOB_ATTRS].to_json
+  @@jobs : String = [JOB_FIXTURE].to_json
 
   describe Client do
     Spec.before_each { WebMock.reset }
