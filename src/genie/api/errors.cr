@@ -10,5 +10,8 @@ module Genie
 
     class NotFoundError < Error
     end
+
+    class ConnectionRefused < Error
+    end
   end
 end

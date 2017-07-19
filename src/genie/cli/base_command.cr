@@ -42,8 +42,9 @@ module Genie::Cli
     private def handle_client_errors
       begin
         yield
-      rescue e : Client::Error
+      rescue e : Api::Error
         Genie.logger.error(e.message)
+        raise e
       end
     end
 

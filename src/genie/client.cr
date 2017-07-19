@@ -1,4 +1,3 @@
-require "./client/errors"
 require "./client/list_options"
 require "./client/search_options"
 require "./client/kill_options"
@@ -21,8 +20,7 @@ module Genie
       resp = get("/jobs", {
         "limit" => options.limit.to_s,
         "name"  => options.name,
-      }
-      )
+      })
 
       jobs = Array(Model::Job).from_json(resp.body)
 
@@ -66,19 +64,11 @@ module Genie
     end
 
     private def get(url, params = {} of String => String)
-      handle_api_error { @api.get(url, params) }
+      @api.get(url, params)
     end
 
     private def delete(url)
-      handle_api_error { @api.delete(url) }
-    end
-
-    private def handle_api_error
-      begin
-        yield
-      rescue e : Api::Error
-        raise Error.new(e.message)
-      end
+      @api.delete(url)
     end
 
     # :nodoc:
