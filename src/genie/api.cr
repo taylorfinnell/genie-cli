@@ -40,19 +40,27 @@ module Genie
 
     # :nodoc:
     private def handle_error
-      resp = yield
+      begin
+        resp = yield
 
-      if resp.unauthorized?
-        raise AuthorizationError.new("Not authorized: '#{resp.inspect}'")
-      elsif resp.error?
-        if resp.status_code == 404
-          raise NotFoundError.new("Request failed, resource not found: #{resp.inspect}")
+        if resp.unauthorized?
+          raise AuthorizationError.new("Not authorized: '#{resp.inspect}'.")
+        elsif resp.error?
+          if resp.status_code == 404
+            raise NotFoundError.new("Request failed, resource not found: #{resp.inspect}.")
+          else
+            raise Error.new("Error request failed: #{resp.inspect}.")
+          end
+        end
+
+        resp
+      rescue e : Errno
+        if e.message =~ /connection refused/i
+          raise ConnectionRefused.new("Connection refused, check your configuration.")
         else
-          raise Error.new("Error request failed: #{resp.inspect}")
+          raise e
         end
       end
-
-      resp
     end
 
     # :nodoc:
