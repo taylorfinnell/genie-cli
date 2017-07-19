@@ -14,7 +14,11 @@ module Genie
         output_uri: {type: String, key: "outputURI"},
         started: Time,
         finished: Time,
+        cluster_id: {type: String, key: "executionClusterId"}
       )
+
+      def initialize(@id : String, @status : String, @name : String, @output_uri : String, @started : Time, @finished : Time, @cluster_id : String)
+      end
 
       def started
         @started.to_local.to_s("%Y-%m-%d %H:%M:%S")

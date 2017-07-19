@@ -11,7 +11,7 @@ module Genie
       printer.print(jobs, [] of String, false)
 
       expected = <<-PRINTED
-      id\tname\tstatus\tprogress\tstarted\tfinished
+      id\tname\tstatus\tprogress\tcluster\tstarted\tfinished
 
       PRINTED
 
@@ -31,8 +31,8 @@ module Genie
       end
 
       expected = <<-PRINTED
-      id\tname\tstatus\tprogress\tstarted\tfinished
-      123\tblah\tRUNNING\tN/A\t2017-05-01 15:56:53\t2017-05-02 15:56:53
+      id\tname\tstatus\tprogress\tcluster\tstarted\tfinished
+      123\tblah\tRUNNING\tN/A\tcluster-id\t2017-05-01 15:56:53\t2017-05-02 15:56:53
 
       PRINTED
 
