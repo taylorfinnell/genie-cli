@@ -32,7 +32,7 @@ module Genie
 
       expected = <<-PRINTED
       id\tname\tstatus\tprogress\tcluster\tstarted\tfinished
-      123\tblah\tRUNNING\tN/A\tcluster-id\t2017-05-01 15:56:53\t2017-05-02 15:56:53
+      123\tblah\tRUNNING\tN/A\tcluster-id\t2017-05-01 15:56:53\tN/A
 
       PRINTED
 

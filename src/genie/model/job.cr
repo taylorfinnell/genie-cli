@@ -25,7 +25,11 @@ module Genie
       end
 
       def finished
-        @finished.to_local.to_s("%Y-%m-%d %H:%M:%S")
+        if @status == "RUNNING"
+          "N/A"
+        else
+          @finished.to_local.to_s("%Y-%m-%d %H:%M:%S")
+        end
       end
 
       def_equals id, status, name, output_uri, started
