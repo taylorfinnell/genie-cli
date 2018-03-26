@@ -28,7 +28,7 @@ module Genie
 
     describe "from_file" do
       it "can parse name length" do
-        path = "/tmp/#{SecureRandom.uuid}"
+        path = "/tmp/#{UUID.random}"
 
         File.write(path, <<-YAML
                    name_length: 123
@@ -41,14 +41,14 @@ module Genie
       end
 
       it "has a default name length of -1" do
-        path = "/tmp/#{SecureRandom.uuid}"
+        path = "/tmp/#{UUID.random}"
         config = Config.from_file(path)
 
         config.name_length.should eq(-1)
       end
 
       it "can parse columns" do
-        path = "/tmp/#{SecureRandom.uuid}"
+        path = "/tmp/#{UUID.random}"
 
         File.write(path, <<-YAML
                    columns:
@@ -63,7 +63,7 @@ module Genie
       end
 
       it "defaults to empty column list" do
-        path = "/tmp/#{SecureRandom.uuid}"
+        path = "/tmp/#{UUID.random}"
 
         config = Config.from_file(path)
 
@@ -71,14 +71,14 @@ module Genie
       end
 
       it "defaults to nil printer" do
-        path = "/tmp/#{SecureRandom.uuid}"
+        path = "/tmp/#{UUID.random}"
 
         config = Config.from_file(path)
         config.printer.should eq(nil)
       end
 
       it "can set printer" do
-        path = "/tmp/#{SecureRandom.uuid}"
+        path = "/tmp/#{UUID.random}"
 
         File.write(path, <<-YAML
                    printer: tabbed
@@ -91,7 +91,7 @@ module Genie
       end
 
       it "defaults to default config if file not found" do
-        path = "/tmp/#{SecureRandom.uuid}"
+        path = "/tmp/#{UUID.random}"
 
         config = Config.from_file(path)
         config.username.should eq(nil)
@@ -100,14 +100,14 @@ module Genie
       end
 
       it "defaults to nil credentials" do
-        path = "/tmp/#{SecureRandom.uuid}"
+        path = "/tmp/#{UUID.random}"
 
         config = Config.from_file(path)
         config.credentials.should eq(nil)
       end
 
       it "defaults to default config if file is empty" do
-        path = "/tmp/#{SecureRandom.uuid}"
+        path = "/tmp/#{UUID.random}"
         File.write(path, "")
 
         config = Config.from_file(path)
@@ -117,7 +117,7 @@ module Genie
       end
 
       it "loads from a file" do
-        path = "/tmp/#{SecureRandom.uuid}"
+        path = "/tmp/#{UUID.random}"
 
         File.write(path, <<-YAML
                    credentials:

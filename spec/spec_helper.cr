@@ -20,6 +20,6 @@ def self.with_timezone(zone)
 end
 
 require "spec"
-require "secure_random"
+require "uuid"
 require "webmock"
 require "../src/genie"
