@@ -38,6 +38,7 @@ module Genie
     end
 
     def host
+      return DEFAULT_HOST if @host.nil?
       if @host.not_nil!.starts_with?("http://")
         @host
       else
