@@ -1,5 +1,6 @@
 require "uri"
 require "http/client"
+require "base64"
 
 require "./api/response"
 require "./api/errors"
@@ -95,8 +96,12 @@ module Genie
       if credentials.nil?
         nil
       else
-        "Basic #{credentials.not_nil!.username}:#{credentials.not_nil!.password}"
+        "Basic #{username_password}"
       end
+    end
+
+    private def username_password
+      Base64.strict_encode("#{credentials.not_nil!.username}:#{credentials.not_nil!.password}")
     end
 
     # :nodoc:
